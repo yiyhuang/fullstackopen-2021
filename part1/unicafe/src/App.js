@@ -23,12 +23,12 @@ const Statictics = ({ good, neutral, bad }) => {
 
     return (
       <div>
-        <Statictic text={"good"} value={good} />
-        <Statictic text={"neutral"} value={neutral} />
-        <Statictic text={"bad"} value={bad} />
-        <Statictic text={"all"} value={all} />
-        <Statictic text={"average"} value={average} />
-        <Statictic text={"positive"} value={positive} />
+        <Statictic text="good" value={good} />
+        <Statictic text="neutral" value={neutral} />
+        <Statictic text="bad" value={bad} />
+        <Statictic text="all" value={all} />
+        <Statictic text="average" value={average} />
+        <Statictic text="positive" value={positive} />
       </div>
     );
   }

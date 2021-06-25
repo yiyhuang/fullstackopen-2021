@@ -8,7 +8,10 @@ const Statictic = ({ text, value }) => {
   return (
     <div>
       {text} {value}
-    </div>
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
   );
 };
 
@@ -23,12 +26,14 @@ const Statictics = ({ good, neutral, bad }) => {
 
     return (
       <div>
-        <Statictic text="good" value={good} />
-        <Statictic text="neutral" value={neutral} />
-        <Statictic text="bad" value={bad} />
-        <Statictic text="all" value={all} />
-        <Statictic text="average" value={average} />
-        <Statictic text="positive" value={positive} />
+        <table>
+          <Statictic text="good" value={good} />
+          <Statictic text="neutral" value={neutral} />
+          <Statictic text="bad" value={bad} />
+          <Statictic text="all" value={all} />
+          <Statictic text="average" value={average} />
+          <Statictic text="positive" value={positive} />
+        </table>
       </div>
     );
   }

@@ -15,15 +15,26 @@ const App = () => {
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blod tests when dianosing patients",
   ];
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
 
-  const generateNext = () => {
+  const updateSelected = () => {
     setSelected(randomNum(0, anecdotes.length - 1));
   };
 
+  const voteSelected = () => {
+    let updatedVotes = [...votes];
+    updatedVotes[selected] += 1;
+    setVotes(updatedVotes);
+  };
+
+  console.log(selected);
+  
   return (
     <div>
-      {anecdotes[selected]}
-      <button onClick={generateNext}>next</button>
+      <p>{anecdotes[selected]}</p>
+      <p>has {votes[selected]} votes</p>
+      <button onClick={updateSelected}>next</button>
+      <button onClick={voteSelected}>vote</button>
     </div>
   );
 };

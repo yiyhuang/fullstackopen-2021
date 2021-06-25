@@ -4,6 +4,30 @@ function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+const Anecdote = ({ anecdotes, index, votes }) => {
+  return (
+    <div>
+      <p>{anecdotes[index]}</p>
+      <p>has {votes[index]} votes</p>
+    </div>
+  );
+};
+
+const MostVotesAnecdote = ({ anecdotes, votes }) => {
+  let maxVotes = Math.max(...votes);
+  let maxVotesIndex = 0;
+
+  for (let i = 0; i < votes.length; i++) {
+    if (votes[i] === maxVotes) {
+      console.log("maxVotes = ", maxVotes);
+      console.log("votes[i] = ", votes[i]);
+      maxVotesIndex = i;
+      break;
+    }
+  }
+  return <Anecdote anecdotes={anecdotes} index={maxVotesIndex} votes={votes} />;
+};
+
 const App = () => {
   const anecdotes = [
     "If it hurts, do it more often",
@@ -18,7 +42,11 @@ const App = () => {
   const [votes, setVotes] = useState(Array(anecdotes.length).fill(0));
 
   const updateSelected = () => {
-    setSelected(randomNum(0, anecdotes.length - 1));
+    let randomIndex = randomNum(0, anecdotes.length - 1);
+    while (randomIndex === selected) {
+      randomIndex = randomNum(0, anecdotes.length - 1);
+    }
+    setSelected(randomIndex);
   };
 
   const voteSelected = () => {
@@ -27,14 +55,15 @@ const App = () => {
     setVotes(updatedVotes);
   };
 
-  console.log(selected);
-  
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
-      <p>has {votes[selected]} votes</p>
+      <h1>Anecdote of the day</h1>
+      <Anecdote anecdotes={anecdotes} index={selected} votes={votes} />
       <button onClick={updateSelected}>next</button>
       <button onClick={voteSelected}>vote</button>
+
+      <h1>Anecdote with most votes</h1>
+      <MostVotesAnecdote anecdotes={anecdotes} votes={votes} />
     </div>
   );
 };

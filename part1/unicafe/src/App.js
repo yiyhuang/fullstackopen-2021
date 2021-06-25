@@ -14,19 +14,24 @@ const Statictic = ({ text, value }) => {
 
 const Statictics = ({ good, neutral, bad }) => {
   const all = good + neutral + bad;
-  const average = (good - bad) / all;
-  const positive = String(((good / all) * 100)).concat("%");
 
-  return (
-    <div>
-      <Statictic text={"good"} value={good} />
-      <Statictic text={"neutral"} value={neutral} />
-      <Statictic text={"bad"} value={bad} />
-      <Statictic text={"all"} value={all} />
-      <Statictic text={"average"} value={average} />
-      <Statictic text={"positive"} value={positive} />
-    </div>
-  );
+  if (all === 0) {
+    return <p>No feedback given</p>;
+  } else {
+    const average = (good - bad) / all;
+    const positive = String((good / all) * 100).concat("%");
+
+    return (
+      <div>
+        <Statictic text={"good"} value={good} />
+        <Statictic text={"neutral"} value={neutral} />
+        <Statictic text={"bad"} value={bad} />
+        <Statictic text={"all"} value={all} />
+        <Statictic text={"average"} value={average} />
+        <Statictic text={"positive"} value={positive} />
+      </div>
+    );
+  }
 };
 
 const App = () => {

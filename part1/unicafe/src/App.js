@@ -6,8 +6,6 @@ const Button = ({ handleClick, text }) => (
 
 const Statictic = ({ text, value }) => {
   return (
-    <div>
-      {text} {value}
     <tr>
       <td>{text}</td>
       <td>{value}</td>

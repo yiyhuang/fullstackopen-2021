@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
+);
+
 const Statictic = ({ text, value }) => {
   return (
     <div>
@@ -8,9 +12,22 @@ const Statictic = ({ text, value }) => {
   );
 };
 
-const Button = ({ handleClick, text }) => (
-  <button onClick={handleClick}>{text}</button>
-);
+const Statictics = ({ good, neutral, bad }) => {
+  const all = good + neutral + bad;
+  const average = (good - bad) / all;
+  const positive = String(((good / all) * 100)).concat("%");
+
+  return (
+    <div>
+      <Statictic text={"good"} value={good} />
+      <Statictic text={"neutral"} value={neutral} />
+      <Statictic text={"bad"} value={bad} />
+      <Statictic text={"all"} value={all} />
+      <Statictic text={"average"} value={average} />
+      <Statictic text={"positive"} value={positive} />
+    </div>
+  );
+};
 
 const App = () => {
   // save clicks of each button to its own state
@@ -26,9 +43,7 @@ const App = () => {
       <Button handleClick={() => setBad(bad + 1)} text={"bad"} />
 
       <h1>statistics</h1>
-      <Statictic text={"good"} value={good} />
-      <Statictic text={"neutral"} value={neutral} />
-      <Statictic text={"bad"} value={bad} />
+      <Statictics good={good} neutral={neutral} bad={bad} />
     </div>
   );
 };

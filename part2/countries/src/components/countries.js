@@ -1,11 +1,15 @@
 import React from "react";
 
-const Countries = ({ countries }) => {
+const Countries = ({ countries, setFilter }) => {
   return (
     <div>
       <ul>
         {countries.map((country) => (
-          <li key={country.name}> {country.name}</li>
+          <li key={country.name}>
+            {" "}
+            {country.name}
+            <button onClick={() => setFilter(country.name)}>show</button>
+          </li>
         ))}
       </ul>
     </div>
@@ -35,7 +39,7 @@ const Country = ({ country }) => {
   );
 };
 
-function renderSwitch(countries) {
+function renderSwitch(countries, setFilter) {
   const countriesCount = countries.length;
   if (countriesCount > 10) {
     return "Too many matches, specify another filter. ";
@@ -43,16 +47,12 @@ function renderSwitch(countries) {
     const country = countries[0];
     return <Country country={country} />;
   } else {
-    return <Countries countries={countries} />;
+    return <Countries countries={countries} setFilter={setFilter} />;
   }
 }
 
-const FilteredCountries = ({ filteredCountries }) => {
-  return (
-    <div>
-      {renderSwitch(filteredCountries)}
-    </div>
-  );
+const FilteredCountries = ({ filteredCountries, setFilter }) => {
+  return <div>{renderSwitch(filteredCountries, setFilter)}</div>;
 };
 
 export default FilteredCountries;

@@ -1,4 +1,5 @@
 import React from "react";
+import Country from "./country";
 
 const Countries = ({ countries, setFilter }) => {
   return (
@@ -16,43 +17,18 @@ const Countries = ({ countries, setFilter }) => {
   );
 };
 
-const Country = ({ country }) => {
-  return (
-    <div>
-      <h2>{country.name}</h2>
-      <p>
-        <b>Capital </b>
-        {country.capital}
-      </p>
-      <p>
-        <b>Population </b>
-        {country.population}
-      </p>
-      <h3>Languages</h3>
-      <ul>
-        {country.languages.map((language) => (
-          <li key={language.name}> {language.name}</li>
-        ))}
-      </ul>
-      <img src={country.flag} alt={country.name} height="100"></img>
-    </div>
-  );
-};
-
-function renderSwitch(countries, setFilter) {
+const FilteredCountries = ({ filteredCountries: countries, setFilter }) => {
   const countriesCount = countries.length;
+  let toRender = <Countries countries={countries} setFilter={setFilter} />;
+
   if (countriesCount > 10) {
-    return "Too many matches, specify another filter. ";
+    toRender = "Too many matches, specify another filter. ";
   } else if (countriesCount === 1) {
     const country = countries[0];
-    return <Country country={country} />;
-  } else {
-    return <Countries countries={countries} setFilter={setFilter} />;
+    toRender = <Country country={country} />;
   }
-}
 
-const FilteredCountries = ({ filteredCountries, setFilter }) => {
-  return <div>{renderSwitch(filteredCountries, setFilter)}</div>;
+  return <div>{toRender}</div>;
 };
 
 export default FilteredCountries;

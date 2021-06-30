@@ -28,10 +28,10 @@ const App = () => {
       <label>find countries</label>
       <input value={filter} onChange={handleFilterChange} />
 
-      <FilteredCountries
-        filteredCountries={filteredCountries}
-        setFilter={setFilter}
-      />
+        <FilteredCountries
+          filteredCountries={filteredCountries}
+          setFilter={setFilter}
+        />
     </div>
   );
 };

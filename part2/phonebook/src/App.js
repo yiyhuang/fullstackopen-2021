@@ -18,8 +18,7 @@ const App = () => {
   }, []);
 
   var personExists = function (name) {
-    const personWithName = persons.filter((person) => person.name === name);
-    return personWithName.length > 0;
+    return persons.find((person) => person.name === name);
   };
 
   const addPerson = (event) => {
@@ -53,6 +52,14 @@ const App = () => {
     setFilter(event.target.value);
   };
 
+  const handleDelete = (personId) => {
+    const person = persons.find((person) => person.id === personId);
+    if (window.confirm(`Delete ${person.name}?`)) {
+      personService.destroy(personId);
+      setPersons(persons.filter((person) => person.id !== personId));
+    }
+  };
+
   const filteredPersons = filter
     ? persons.filter((person) =>
         person.name.toLowerCase().includes(filter.toLowerCase())
@@ -78,7 +85,7 @@ const App = () => {
       />
 
       <h2>Numbers</h2>
-      <Persons persons={filteredPersons} />
+      <Persons persons={filteredPersons} handleDelete={handleDelete} />
     </div>
   );
 };

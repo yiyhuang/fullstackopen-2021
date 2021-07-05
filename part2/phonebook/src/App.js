@@ -17,15 +17,37 @@ const App = () => {
     });
   }, []);
 
-  var personExists = function (name) {
-    return persons.find((person) => person.name === name);
-  };
-
   const addPerson = (event) => {
     event.preventDefault();
 
-    if (personExists(newName)) {
-      window.alert(`${newName} is already added to phonebook`);
+    const person = persons.find((person) => person.name === newName);
+    if (person) {
+      if (
+        window.confirm(
+          `${person.name} is already added to the phonebook, replace the old number with a new one?`
+        )
+      ) {
+        const updatedPerson = { ...person, number: newNumber };
+        personService
+          .update(updatedPerson.id, updatedPerson)
+          .then((returnedPerson) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== updatedPerson.id ? person : returnedPerson
+              )
+            );
+          })
+          .catch((error) => {
+            alert(
+              `the person '${updatedPerson.name}' was already deleted from server`
+            );
+            setPersons(
+              persons.filter((person) => person.id !== updatedPerson.id)
+            );
+          });
+        setNewName("");
+        setNewNumber("");
+      }
     } else {
       const personObject = {
         name: newName,

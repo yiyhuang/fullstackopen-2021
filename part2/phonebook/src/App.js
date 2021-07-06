@@ -30,7 +30,9 @@ const App = () => {
       setNewName("");
       setNewNumber("");
 
-      setMessage(`Added ${returnedPerson.name}`);
+      setMessage({
+        success: `Added ${returnedPerson.name}`,
+      });
       setTimeout(() => {
         setMessage(null);
       }, 5000);
@@ -52,18 +54,24 @@ const App = () => {
               person.id !== updatedPerson.id ? person : returnedPerson
             )
           );
-          setMessage(`Updated ${returnedPerson.name}'s number`);
+
+          setMessage({
+            success: `Updated ${returnedPerson.name}'s number`,
+          });
           setTimeout(() => {
             setMessage(null);
           }, 5000);
         })
         .catch((error) => {
-          alert(
-            `the person '${updatedPerson.name}' was already deleted from server`
-          );
           setPersons(
             persons.filter((person) => person.id !== updatedPerson.id)
           );
+          setMessage({
+            error: `${updatedPerson.name} was already deleted from server`,
+          });
+          setTimeout(() => {
+            setMessage(null);
+          }, 5000);
         });
       setNewName("");
       setNewNumber("");
@@ -98,7 +106,9 @@ const App = () => {
     const person = persons.find((person) => person.id === personId);
     if (window.confirm(`Delete ${person.name}?`)) {
       personService.destroy(personId).then(() => {
-        setMessage(`Deleted ${person.name}`);
+        setMessage({
+          success: `Deleted ${person.name}`,
+        });
         setTimeout(() => {
           setMessage(null);
         }, 5000);
